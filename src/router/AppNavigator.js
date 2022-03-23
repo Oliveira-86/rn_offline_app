@@ -22,7 +22,6 @@ const AppNavigation = () => {
         screenOptions={{ headerShown: false }}
       >
         <AppStack.Screen name={constant.SHOP} component={ShopNavigation} />
-        <AppStack.Screen name={constant.USER} component={UserNavigation} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

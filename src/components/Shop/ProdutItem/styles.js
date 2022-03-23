@@ -1,35 +1,40 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
-    border-radius: 8px;
-    height: 300px;
-    margin: 20px;
+  padding: 20px;
+  border-radius: 4px;
+  background: #fff;
+  margin-bottom: 15px;
+`;
+export const Name = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
-export const Image = styled.Image`
-    width: 100%;
-    height: 60%;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+export const Description = styled.Text.attrs({
+  numberOfLines: 2,
+})`
+  color: ${({ theme }) => theme.colors.gray};
+  margin-top: 5px;
+  line-height: 20px;
 `;
 
-export const Details = styled.View`
-    align-items: center;
-    padding: 10px 0px;
-    height: 15%;
+export const Actions = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;
 
-export const Title = styled.Text`
-    font-size: 18px;
-    line-height: 20px;
-    font-family: ${({theme}) => theme.fonts.bold};
-    color: ${({theme}) => theme.colors.gray};
-    background: red;
+export const ButtonContainer = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  ${({ right }) => right && `margin-left: 10px`}
 `;
 
-export const Price = styled.Text`
-    font-size: 14px;
-    line-height: 18px;
-    color: ${({theme}) => theme.colors.gray};
-    font-family: ${({theme}) => theme.fonts.bold};
+export const ButtonText = styled.Text`
+  margin-left: 6px
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.black};
 `;

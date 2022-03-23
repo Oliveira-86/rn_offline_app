@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.Pressable`
   flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 20px;
 `;
 
 export const Title = styled.Text`

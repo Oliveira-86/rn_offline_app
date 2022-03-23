@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Title, IconBack } from "./styles";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -7,12 +7,55 @@ import Input from "../../components/UI/Input";
 import theme from "../../styles/theme";
 
 import { useNavigation } from "@react-navigation/native";
+import { Keyboard } from "react-native";
+import Button from "./../../components/UI/Button/index";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost } from "../../features/posts/posts-thunk";
 
-const EditProductScreen = (props) => {
+const EditProductScreen = ({route}) => {
+  const [value, onChangeText] = useState("");
+  const [error, setError] = useState(false);
+
+  const { postId } = route.params;
+  console.log(' id', postId)
+
+  const { posts, loading } = useSelector((state) => state.posts);
+  console.log(' post', posts)
+
+  const editPost = posts.find(post => post.id === postId)
+  console.log('edit post', editPost)
+
+  const dispatch = useDispatch();
+
+  const onSubmit = () => {
+    if (!value) {
+      setError(true);
+      return;
+    }
+
+    const obj = {
+      ownerId: 'u2',
+      description: value,
+    };
+    console.log(obj)
+    try {
+      dispatch(createPost(obj));
+    } catch (error) {}
+  };
+
   return (
-    <Container>
+    <Container onPress={Keyboard.dismiss}>
       <Title>Create Post</Title>
-      <Input label="Message" />
+      <Input
+        label="Message"
+        value={editPost ? editPost.description : ''}
+        initialValue={editPost ? editPost.description : ''}
+        onChangeText={(text) => {
+          onChangeText(text);
+        }}
+        error={error}
+      />
+      <Button label="send product" onPress={onSubmit} />
     </Container>
   );
 };

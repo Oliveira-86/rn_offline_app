@@ -1,6 +1,6 @@
 export default {
     SHOP: 'Shop',
-    SHOP_PRODUCTS_OVERVIEW: 'ProductOverview',
+    SHOP_POSTS_OVERVIEW: 'PostsOverview',
 
     USER: 'User',
     USER_EDIT: 'UserEdit'

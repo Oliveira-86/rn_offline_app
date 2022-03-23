@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Container, List, Loading, Header } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../../features/products/products-thunk";
+import { getPosts } from "../../../features/posts/posts-thunk";
 import ProductItem from "../../../components/Shop/ProdutItem";
 
 import Button from "../../../components/UI/Button";
@@ -14,21 +14,39 @@ const ProductOverview = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { products, loading } = useSelector((state) => state.products);
+  const { posts, loading } = useSelector((state) => state.posts);
+
+  console.log("aqui", posts);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+    dispatch(getPosts());
+  }, [dispatch]);
+
+  const editProductHandler = (id) => {
+    console.log(id)
+    
+  };
 
   if (loading) return <Loading>Loading...</Loading>;
 
   return (
     <Container>
-      {/* <List
-        data={availableProducts}
+      <Loading>My Posts</Loading>
+      <List
+        data={posts}
         keyExtractor={(item) => item.id}
-      /> */}
-      <Loading>Hello expo</Loading>
+        renderItem={(itemData) => {
+          console.log("itemData", itemData.item.id);
+          return (
+            <ProductItem
+              description={itemData.item.description}
+              onEdit={() => {
+                navigation.navigate(constant.USER_EDIT, { postId: itemData.item.id });
+              }}
+            />
+          );
+        }}
+      />
       <Button
         label="Create Product"
         onPress={() => {

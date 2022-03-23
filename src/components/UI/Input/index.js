@@ -10,12 +10,12 @@ const Input = props => {
     return (
         <InputDefaultContainer>
             <Label>{props.label}</Label>
-            <InputStyle {...props} />
-            {/* {props.eyeoff && (
-                <InputDefaultIcon>
-                    <EyeOff width={25} height={25} />
-                </InputDefaultIcon>
-            )} */}
+            <InputStyle {...props} error={props.error} />
+            {props.error && (
+                <Label error={props.error}>
+                    can't be empty
+                </Label>
+            )}
         </InputDefaultContainer>
     );
 };

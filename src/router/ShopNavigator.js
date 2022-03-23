@@ -2,18 +2,29 @@ import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import constant from "../constants/navigatorStrings";
-import ProductOverview, {
-    screenOptions as ProductOverviewScreenOptions
-} from '../screens/Shop/ProductOverview';
+import PostsOverview, {
+    screenOptions as PostsOverviewScreenOptions
+} from '../screens/Shop/PostsOverview';
+
+
+import EditProductScreen, {
+  screenOptions as EditProductScreenOptions,
+} from "../screens/User/EditProduct";
 
 const ShopStack = createNativeStackNavigator();
 
 export const ShopNavigation = () => {
   return (
-    <ShopStack.Navigator screenOptions={ProductOverviewScreenOptions}>
+    <ShopStack.Navigator>
       <ShopStack.Screen
-        name={constant.SHOP_PRODUCTS_OVERVIEW}
-        component={ProductOverview}
+        name={constant.SHOP_POSTS_OVERVIEW}
+        component={PostsOverview}
+        options={PostsOverviewScreenOptions}
+      />
+       <ShopStack.Screen
+        name={constant.USER_EDIT}
+        component={EditProductScreen}
+        options={EditProductScreenOptions}
       />
     </ShopStack.Navigator>
   );
