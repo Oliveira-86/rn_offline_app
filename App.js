@@ -1,7 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
-import AppLoading from "expo-app-loading";
-import theme from "./src/styles/theme";
 
 import {
   useFonts,
@@ -9,11 +7,13 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
-import ProductOverview from "./src/screens/Shop/ProductOverview";
+import AppNavigator from "./src/router/AppNavigator";
 
 import { store } from "./src/features/store";
 import { Provider } from "react-redux";
-import EditProductScreen from './src/screens/User/EditProduct';
+
+import AppLoading from "expo-app-loading";
+import theme from "./src/styles/theme";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -27,10 +27,10 @@ export default function App() {
 
   return (
     <>
+      <StatusBar style="light" translucent />
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <EditProductScreen />
-          <StatusBar style="auto" />
+          <AppNavigator />
         </ThemeProvider>
       </Provider>
     </>

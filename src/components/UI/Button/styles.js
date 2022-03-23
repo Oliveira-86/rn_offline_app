@@ -4,7 +4,6 @@ export const StyledButton = styled.TouchableOpacity`
     position: relative;
     padding: ${({large}) => (large ? '15px' : '10px')};
     border-radius: 4px;
-    cursor: pointer;
     font-weight: 700;
     width: 100%;
     height: 50px;

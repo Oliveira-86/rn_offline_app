@@ -2,8 +2,9 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     flex: 1;
+    padding: 35px 20px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 `;
 
 export const List = styled.FlatList`
@@ -15,4 +16,9 @@ export const List = styled.FlatList`
 export const Loading = styled.Text`
     font-size: 16px;
     font-family: ${({ theme }) => theme.fonts.bold};
+`;
+
+export const Header = styled.View`
+flex: 1;
+background-color: ${({ theme }) => theme.colors.secondary}
 `;
