@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Container, List, Loading, Header } from "./styles";
+import { Container, List, Loading } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { getPosts } from "../../../features/posts/posts-thunk";
+import { getPosts, deleteUserPost } from "../../../features/posts/posts-thunk";
 import ProductItem from "../../../components/Shop/ProdutItem";
 
 import Button from "../../../components/UI/Button";
@@ -16,16 +16,26 @@ const ProductOverview = () => {
 
   const { posts, loading } = useSelector((state) => state.posts);
 
-  console.log("aqui", posts);
-
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, []);
 
-  const editProductHandler = (id) => {
-    console.log(id)
-    
-  };
+  const deleteHandler = (id) => {
+    Alert.alert('Are you sure?', 'Do you really want to delete this item?', [
+        {
+            text: 'No', 
+            style: 'default'
+        },
+        {
+            text: 'Yes',
+            style: 'destructive',
+            onPress: () => {
+                dispatch(deleteUserPost(id))
+            }
+        }
+    ]);
+};
+
 
   if (loading) return <Loading>Loading...</Loading>;
 
@@ -36,13 +46,13 @@ const ProductOverview = () => {
         data={posts}
         keyExtractor={(item) => item.id}
         renderItem={(itemData) => {
-          console.log("itemData", itemData.item.id);
           return (
             <ProductItem
               description={itemData.item.description}
               onEdit={() => {
                 navigation.navigate(constant.USER_EDIT, { postId: itemData.item.id });
               }}
+              onDelete={deleteHandler(itemData.item.id)}
             />
           );
         }}
@@ -50,7 +60,7 @@ const ProductOverview = () => {
       <Button
         label="Create Product"
         onPress={() => {
-          navigation.navigate(constant.USER);
+          navigation.navigate(constant.USER_EDIT);
         }}
       />
     </Container>

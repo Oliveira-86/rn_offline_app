@@ -12,3 +12,4 @@ export const fetchPosts = () => API.get("/posts.json");
 export const postPost = (newPost) => API.post("/posts.json", newPost, config);
 export const updatePost = (id, updatedPost) =>
   API.patch(`/posts/${id}.json`, updatedPost, config);
+export const deletePost = (id) => API.delete(`/posts/${id}.json`);

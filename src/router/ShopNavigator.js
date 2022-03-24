@@ -2,6 +2,7 @@ import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import constant from "../constants/navigatorStrings";
+
 import PostsOverview, {
     screenOptions as PostsOverviewScreenOptions
 } from '../screens/Shop/PostsOverview';

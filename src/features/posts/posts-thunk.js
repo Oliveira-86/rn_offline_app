@@ -11,8 +11,6 @@ export const getPosts = createAsyncThunk("posts/getPosts", async () => {
       loadedPost.push(new Post(key, "u1", data[key].description));
     }
 
-    console.log("thunk", data);
-
     return loadedPost;
   } catch (error) {
     return rejectWithValue("Opps there seems to be an error");
@@ -20,33 +18,44 @@ export const getPosts = createAsyncThunk("posts/getPosts", async () => {
 });
 
 export const createPost = createAsyncThunk("post/createPost", async (post) => {
-  console.log("thunk", post);
-
   try {
     const { data } = await api.postPost(post);
-    console.log("data", data);
+
     return data;
   } catch (error) {
     return error;
   }
 });
 
-// export const updatePost = createAsyncThunk(
-//   "posts/getPosts",
-//   async (updatePost) => {
-//     try {
-//       await api.updatePost(updatePost);
-//       const loadedPost = [];
+export const updateUserPost = createAsyncThunk(
+  "posts/updatePosts",
+  async (updatePost) => {
+    const obj = {
+      description: updatePost.description,
+      ownerId: updatePost.ownerId,
+    };
 
-//       for (const key in data) {
-//         loadedPost.push(new Post(key, "u1", data[key].description));
-//       }
+    try {
+      const { data } = await api.updatePost(updatePost.id, obj);
+      const loadedPost = [];
 
-//       console.log("thunk", data);
+      
 
-//       return loadedPost;
-//     } catch (error) {
-//       return rejectWithValue("Opps there seems to be an error");
-//     }
-//   }
-// );
+      return loadedPost;
+    } catch (error) {
+      return rejectWithValue("Opps there seems to be an error");
+    }
+  }
+);
+
+export const deleteUserPost = createAsyncThunk(
+  "posts/deletePosts",
+  async (id) => {
+  
+    try {
+     await api.deletePost(id);
+    } catch (error) {
+      return rejectWithValue("Opps there seems to be an error");
+    }
+  }
+);

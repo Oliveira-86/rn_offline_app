@@ -10,20 +10,19 @@ import { useNavigation } from "@react-navigation/native";
 import { Keyboard } from "react-native";
 import Button from "./../../components/UI/Button/index";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../../features/posts/posts-thunk";
+import { createPost, updateUserPost } from "../../features/posts/posts-thunk";
 
-const EditProductScreen = ({route}) => {
+const EditProductScreen = ({ route }) => {
   const [value, onChangeText] = useState("");
   const [error, setError] = useState(false);
 
-  const { postId } = route.params;
-  console.log(' id', postId)
+  const { postId } = route.params ? route.params : "";
 
-  const { posts, loading } = useSelector((state) => state.posts);
-  console.log(' post', posts)
+  if (postId) {
+    const { posts, loading } = useSelector((state) => state.posts);
 
-  const editPost = posts.find(post => post.id === postId)
-  console.log('edit post', editPost)
+    const editPost = posts.find((post) => post.id === postId);
+  }
 
   const dispatch = useDispatch();
 
@@ -34,12 +33,22 @@ const EditProductScreen = ({route}) => {
     }
 
     const obj = {
-      ownerId: 'u2',
+      ownerId: "u2",
       description: value,
     };
-    console.log(obj)
+
+    const updateObj = {
+      id: postId,
+      ownerId: "u2",
+      description: value,
+    };
+
     try {
-      dispatch(createPost(obj));
+      if (postId) {
+        dispatch(updateUserPost(updateObj));
+      } else {
+        dispatch(createPost(obj));
+      }
     } catch (error) {}
   };
 
@@ -48,8 +57,7 @@ const EditProductScreen = ({route}) => {
       <Title>Create Post</Title>
       <Input
         label="Message"
-        value={editPost ? editPost.description : ''}
-        initialValue={editPost ? editPost.description : ''}
+        value={value}
         onChangeText={(text) => {
           onChangeText(text);
         }}

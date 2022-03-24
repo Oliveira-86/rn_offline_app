@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createPost, getPosts } from "./posts-thunk";
+import { createPost, getPosts, updateUserPost } from "./posts-thunk";
 
 const initialState = {
   posts: [],
   loading: false,
 };
-console.log("initialState", initialState.posts);
 
 export const postsSlice = createSlice({
   name: "posts",
@@ -20,26 +19,32 @@ export const postsSlice = createSlice({
       state.posts = action.payload;
       state.loading = false;
     },
-    [getPosts.rejected]: (state, action) => {
-      console.log(action.payload);
+    [getPosts.rejected]: (state) => {
       state.loading = false;
     },
+    
     // createPosts
     [createPost.pending]: (state) => {
       state.loading = true;
     },
     [createPost.fulfilled]: (state, action) => {
-      console.log("ful action", action.payload);
-      let list = [];
-      list.concat(action.payload);
-      console.log("ful list", list);
-
       state.posts = action.payload;
       state.loading = false;
-      
     },
-    [createPost.rejected]: (state, action) => {
-      console.log("reject", action.payload);
+    [createPost.rejected]: (state) => {
+      state.loading = false;
+    },
+
+    // updatePost
+    [updateUserPost.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateUserPost.fulfilled]: (state, action) => {
+      console.log("ful action", action.payload);
+      state.posts = action.payload;
+      state.loading = false;
+    },
+    [updateUserPost.rejected]: (state, action) => {
       state.loading = false;
     },
   },

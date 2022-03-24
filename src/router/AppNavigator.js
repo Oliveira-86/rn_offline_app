@@ -5,14 +5,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import constant from "../constants/navigatorStrings";
 import { ShopNavigation } from "./ShopNavigator";
-import { UserNavigation } from "./UserNavigator";
 
 const AppStack = createNativeStackNavigator();
 
-
-import EditProductScreen, {
-  screenOptions as EditProductScreenOptions,
-} from "../screens/User/EditProduct";
 
 const AppNavigation = () => {
   return (

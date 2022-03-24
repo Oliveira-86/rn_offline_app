@@ -1,15 +1,15 @@
-import React from "react";
+// import React from "react";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import constant from "../constants/navigatorStrings";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import constant from "../constants/navigatorStrings";
 
 
-const UserStack = createNativeStackNavigator();
+// const UserStack = createNativeStackNavigator();
 
-export const UserNavigation = () => {
-  return (
-    <UserStack.Navigator screenOptions={EditProductScreenOptions}>
+// export const UserNavigation = () => {
+//   return (
+//     <UserStack.Navigator screenOptions={EditProductScreenOptions}>
      
-    </UserStack.Navigator>
-  );
-};
+//     </UserStack.Navigator>
+//   );
+// };
