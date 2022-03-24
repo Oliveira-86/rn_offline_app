@@ -9,7 +9,6 @@ import {
 } from "./styles.js";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import Button from "./../../UI/Button/index";
 
 const ProductItem = (props) => {
   return (

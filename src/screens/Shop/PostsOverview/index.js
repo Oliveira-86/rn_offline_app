@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Alert } from "react-native";
 import { Container, List, Loading } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, deleteUserPost } from "../../../features/posts/posts-thunk";
@@ -21,20 +22,22 @@ const ProductOverview = () => {
   }, []);
 
   const deleteHandler = (id) => {
+    console.log('click')  
     Alert.alert('Are you sure?', 'Do you really want to delete this item?', [
-        {
-            text: 'No', 
-            style: 'default'
-        },
-        {
-            text: 'Yes',
-            style: 'destructive',
-            onPress: () => {
-                dispatch(deleteUserPost(id))
-            }
+      {
+        text: 'No', 
+        style: 'default'
+      },
+      {
+        text: 'Yes',
+        style: 'destructive',
+        onPress: () => {
+          dispatch(deleteUserPost(id))
         }
+      }
     ]);
-};
+  };
+  console.log('---------------------------------------')
 
 
   if (loading) return <Loading>Loading...</Loading>;
@@ -52,7 +55,7 @@ const ProductOverview = () => {
               onEdit={() => {
                 navigation.navigate(constant.USER_EDIT, { postId: itemData.item.id });
               }}
-              onDelete={deleteHandler(itemData.item.id)}
+              onDelete={deleteHandler.bind(this, itemData.item.id)}
             />
           );
         }}

@@ -3,7 +3,6 @@ import {
     InputDefaultContainer,
     Label,
     InputStyle,
-    InputDefaultIcon,
 } from './styles';
 
 const Input = props => {
@@ -13,7 +12,7 @@ const Input = props => {
             <InputStyle {...props} error={props.error} />
             {props.error && (
                 <Label error={props.error}>
-                    can't be empty
+                    {props.errorText}
                 </Label>
             )}
         </InputDefaultContainer>

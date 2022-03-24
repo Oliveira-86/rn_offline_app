@@ -18,5 +18,5 @@ export const Header = styled.View`
 `;
 
 export const IconBack = styled.TouchableOpacity`
-margin-right: 20px;
+  margin-right: 20px;
 `;

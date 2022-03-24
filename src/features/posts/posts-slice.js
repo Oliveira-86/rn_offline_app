@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createPost, getPosts, updateUserPost } from "./posts-thunk";
+import { createPost, getPosts, updateUserPost, deleteUserPost } from "./posts-thunk";
 
 const initialState = {
   posts: [],
@@ -40,11 +40,23 @@ export const postsSlice = createSlice({
       state.loading = true;
     },
     [updateUserPost.fulfilled]: (state, action) => {
-      console.log("ful action", action.payload);
       state.posts = action.payload;
       state.loading = false;
     },
     [updateUserPost.rejected]: (state, action) => {
+      state.loading = false;
+    },
+
+     // deletePost
+     [deleteUserPost.pending]: (state) => {
+      state.loading = true;
+    },
+    [deleteUserPost.fulfilled]: (state, action) => {
+      console.log("ful action", action.payload);
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+      state.loading = false;
+    },
+    [deleteUserPost.rejected]: (state, action) => {
       state.loading = false;
     },
   },

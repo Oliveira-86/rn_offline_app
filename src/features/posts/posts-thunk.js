@@ -50,10 +50,11 @@ export const updateUserPost = createAsyncThunk(
 
 export const deleteUserPost = createAsyncThunk(
   "posts/deletePosts",
-  async (id) => {
-  
+  async (id) => {  
     try {
      await api.deletePost(id);
+
+     return id;
     } catch (error) {
       return rejectWithValue("Opps there seems to be an error");
     }

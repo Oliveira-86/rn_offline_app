@@ -2,27 +2,24 @@ import React, { useState } from "react";
 import { Container, Title, IconBack } from "./styles";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import Input from "../../components/UI/Input";
+import Input from "../../../components/UI/Input";
 
-import theme from "../../styles/theme";
+import theme from "../../../styles/theme";
 
 import { useNavigation } from "@react-navigation/native";
 import { Keyboard } from "react-native";
-import Button from "./../../components/UI/Button/index";
-import { useDispatch, useSelector } from "react-redux";
-import { createPost, updateUserPost } from "../../features/posts/posts-thunk";
+import Button from "../../../components/UI/Button/index";
+import { useDispatch } from "react-redux";
+import {
+  createPost,
+  updateUserPost,
+} from "../../../features/posts/posts-thunk";
 
-const EditProductScreen = ({ route }) => {
+const EditPostScreen = ({ route }) => {
   const [value, onChangeText] = useState("");
   const [error, setError] = useState(false);
 
   const { postId } = route.params ? route.params : "";
-
-  if (postId) {
-    const { posts, loading } = useSelector((state) => state.posts);
-
-    const editPost = posts.find((post) => post.id === postId);
-  }
 
   const dispatch = useDispatch();
 
@@ -56,19 +53,22 @@ const EditProductScreen = ({ route }) => {
     <Container onPress={Keyboard.dismiss}>
       <Title>Create Post</Title>
       <Input
+        big
+        textAlignVertical='top'
         label="Message"
         value={value}
         onChangeText={(text) => {
           onChangeText(text);
         }}
         error={error}
+        errorText="Can not be empty"
       />
       <Button label="send product" onPress={onSubmit} />
     </Container>
   );
 };
 
-export default EditProductScreen;
+export default EditPostScreen;
 
 export const screenOptions = () => {
   return {

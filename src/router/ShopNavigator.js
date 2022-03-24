@@ -10,7 +10,7 @@ import PostsOverview, {
 
 import EditProductScreen, {
   screenOptions as EditProductScreenOptions,
-} from "../screens/User/EditProduct";
+} from "../screens/User/EditPost";
 
 const ShopStack = createNativeStackNavigator();
 

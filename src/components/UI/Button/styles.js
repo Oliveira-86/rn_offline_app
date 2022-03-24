@@ -2,11 +2,10 @@ import styled from 'styled-components/native';
 
 export const StyledButton = styled.TouchableOpacity`
     position: relative;
-    padding: ${({large}) => (large ? '15px' : '10px')};
+    padding: ${({large}) => (large ? '15px' : '5px')};
     border-radius: 4px;
     font-weight: 700;
     width: 100%;
-    height: 50px;
     justify-content: center;
     align-items: center;
     ${props => {

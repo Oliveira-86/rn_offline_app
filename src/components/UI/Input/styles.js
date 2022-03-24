@@ -2,32 +2,30 @@ import styled from "styled-components/native";
 
 export const InputDefaultContainer = styled.View`
   width: 100%;
-  margin-top: 15px;
-  min-height: 150px;
+  margin-bottom: 15px;
 `;
 
 export const Label = styled.Text`
   font-family: ${(props) => props.error ? props.theme.fonts.regular : props.theme.fonts.bold};
-  margin-left: 15px;
-  font-size: 13px;
+  margin-left: 10px;
+  font-size: ${({ small }) => small ? '8px' : '13px'};
   line-height: 18px;
   text-decoration: none;
   color: ${(props) => props.error ? props.theme.colors.error : props.theme.colors.gray_strong};
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `;
 
 export const InputStyle = styled.TextInput.attrs({
   multiline: true,
-  textAlignVertical: "top",
 })`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.gray};
   border-radius: 5px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   font-size: 16px;
-  line-height: 21px;
+  line-height: 16px;
   font-family: ${({ theme }) => theme.fonts.bold};
-  min-height: 100px;
+  min-height: ${({ big  }) => big ? '100px' : '0px' } ;
   border-width: 1px;
   border-color: ${(props) => props.error ?  props.theme.colors.error : props.theme.colors.gray};
 `;
