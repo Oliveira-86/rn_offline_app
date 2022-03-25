@@ -30,8 +30,3 @@ export const InputStyle = styled.TextInput.attrs({
   border-color: ${(props) => props.error ?  props.theme.colors.error : props.theme.colors.gray};
 `;
 
-export const InputDefaultIcon = styled.Text`
-  position: absolute;
-  right: 25px;
-  top: ${({ opcional }) => (opcional ? "25px" : "20px")};
-`;

@@ -16,7 +16,7 @@ const ShopStack = createNativeStackNavigator();
 
 export const ShopNavigation = () => {
   return (
-    <ShopStack.Navigator>
+    <ShopStack.Navigator initialRouteName={constant.SHOP_POSTS_OVERVIEW}>
       <ShopStack.Screen
         name={constant.SHOP_POSTS_OVERVIEW}
         component={PostsOverview}

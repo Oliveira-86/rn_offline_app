@@ -13,9 +13,8 @@ export const LinearGradientContainer = styled(LinearGradient).attrs({
 `;
 
 export const Card = styled.View`
-  width: 80%;
-  max-width: 400px;
-  padding: 10px 20px;
+  min-width: 80%;
+  padding: 20px 20px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
 `;

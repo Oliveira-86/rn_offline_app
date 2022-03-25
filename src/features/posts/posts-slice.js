@@ -11,7 +11,6 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    // getPosts
     [getPosts.pending]: (state) => {
       state.loading = true;
     },
@@ -23,7 +22,7 @@ export const postsSlice = createSlice({
       state.loading = false;
     },
     
-    // createPosts
+
     [createPost.pending]: (state) => {
       state.loading = true;
     },
@@ -35,7 +34,7 @@ export const postsSlice = createSlice({
       state.loading = false;
     },
 
-    // updatePost
+
     [updateUserPost.pending]: (state) => {
       state.loading = true;
     },
@@ -47,16 +46,15 @@ export const postsSlice = createSlice({
       state.loading = false;
     },
 
-     // deletePost
+
      [deleteUserPost.pending]: (state) => {
       state.loading = true;
     },
     [deleteUserPost.fulfilled]: (state, action) => {
-      console.log("ful action", action.payload);
       state.posts = state.posts.filter((post) => post.id !== action.payload);
       state.loading = false;
     },
-    [deleteUserPost.rejected]: (state, action) => {
+    [deleteUserPost.rejected]: (state) => {
       state.loading = false;
     },
   },

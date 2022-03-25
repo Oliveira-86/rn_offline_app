@@ -15,12 +15,15 @@ import {
   updateUserPost,
 } from "../../../features/posts/posts-thunk";
 
+import constant from '../../../constants/navigatorStrings';
+
 const EditPostScreen = ({ route }) => {
   const [value, onChangeText] = useState("");
   const [error, setError] = useState(false);
 
   const { postId } = route.params ? route.params : "";
 
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const onSubmit = () => {
@@ -43,8 +46,11 @@ const EditPostScreen = ({ route }) => {
     try {
       if (postId) {
         dispatch(updateUserPost(updateObj));
+        navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
       } else {
+        console.log('Here')
         dispatch(createPost(obj));
+        navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
       }
     } catch (error) {}
   };
@@ -54,7 +60,7 @@ const EditPostScreen = ({ route }) => {
       <Title>Create Post</Title>
       <Input
         big
-        textAlignVertical='top'
+        textAlignVertical="top"
         label="Message"
         value={value}
         onChangeText={(text) => {
@@ -63,7 +69,7 @@ const EditPostScreen = ({ route }) => {
         error={error}
         errorText="Can not be empty"
       />
-      <Button label="send product" onPress={onSubmit} />
+      <Button label="send product" large onPress={onSubmit} />
     </Container>
   );
 };
@@ -87,7 +93,7 @@ export const screenOptions = () => {
       return (
         <IconBack
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
           }}
         >
           <MaterialIcons name="keyboard-arrow-left" size={30} color="white" />

@@ -20,7 +20,7 @@ export const getPosts = createAsyncThunk("posts/getPosts", async () => {
 export const createPost = createAsyncThunk("post/createPost", async (post) => {
   try {
     const { data } = await api.postPost(post);
-
+    console.log("slice create",data)
     return data;
   } catch (error) {
     return error;
@@ -30,18 +30,19 @@ export const createPost = createAsyncThunk("post/createPost", async (post) => {
 export const updateUserPost = createAsyncThunk(
   "posts/updatePosts",
   async (updatePost) => {
+
     const obj = {
       description: updatePost.description,
       ownerId: updatePost.ownerId,
     };
 
+    console.log("thunk obj", updatePost)
+
     try {
-      const { data } = await api.updatePost(updatePost.id, obj);
-      const loadedPost = [];
+      const { data } = await api.updatePost(updatePost.id, obj)
+      console.log("thunk update",data)
 
-      
-
-      return loadedPost;
+      return data;
     } catch (error) {
       return rejectWithValue("Opps there seems to be an error");
     }

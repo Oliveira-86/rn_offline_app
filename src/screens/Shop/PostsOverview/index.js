@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Alert } from "react-native";
-import { Container, List, Loading } from "./styles";
+import { Alert, ActivityIndicator } from "react-native";
+import { Container, List, Loading, Centered, IconBack } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, deleteUserPost } from "../../../features/posts/posts-thunk";
+import { MaterialIcons } from "@expo/vector-icons";
 import ProductItem from "../../../components/Shop/ProdutItem";
 
 import Button from "../../../components/UI/Button";
@@ -19,7 +20,7 @@ const ProductOverview = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-  }, []);
+  }, [dispatch]);
 
   const deleteHandler = (id) => {
     console.log('click')  
@@ -37,10 +38,8 @@ const ProductOverview = () => {
       }
     ]);
   };
-  console.log('---------------------------------------')
 
-
-  if (loading) return <Loading>Loading...</Loading>;
+  if (loading) return <Centered><ActivityIndicator size="large" color={theme.colors.secondary} /></Centered>;
 
   return (
     <Container>
@@ -61,6 +60,7 @@ const ProductOverview = () => {
         }}
       />
       <Button
+      large
         label="Create Product"
         onPress={() => {
           navigation.navigate(constant.USER_EDIT);
@@ -79,6 +79,19 @@ export const screenOptions = () => {
     headerTitleStyle: {
       color: theme.colors.white,
       fontFamily: theme.fonts.bold,
+    },
+    headerLeft: () => {
+      const navigation = useNavigation();
+
+      return (
+        <IconBack
+          onPress={() => {
+            navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
+          }}
+        >
+          <MaterialIcons name="keyboard-arrow-left" size={30} color="white" />
+        </IconBack>
+      );
     },
   };
 };

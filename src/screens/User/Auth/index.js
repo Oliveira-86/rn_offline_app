@@ -1,5 +1,4 @@
 import {
-  Container,
   LinearGradientContainer,
   Card,
   ButtonContainer,
@@ -11,8 +10,9 @@ import Button from "../../../components/UI/Button";
 import theme from "../../../styles/theme";
 import { useDispatch } from "react-redux";
 import { loginPost, signupPost } from "../../../features/auth/auth-thunk";
-import { ActivityIndicator, Keyboard, Pressable, Touchable } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ActivityIndicator, Keyboard, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import constant from "../../../constants/navigatorStrings";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,11 +22,10 @@ const Auth = () => {
   const [emailValue, setEmailValue] = useState();
   const [passwordValue, setPasswordValue] = useState();
 
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const onHandleSignInUp = () => {
-    console.log("email", emailValue);
-    console.log("password", passwordValue);
     if (!emailValue || !passwordValue) {
       setError(true);
       setErrorPassword(true);
@@ -43,19 +42,22 @@ const Auth = () => {
       password: passwordValue,
       returnSecureToken: true,
     };
-
-    console.log("Auth Screen", formData);
+    
     setIsLoading(true);
     try {
       if (isSignup) {
         dispatch(signupPost(formData));
+        setIsLoading(false);
+        navigation.navigate(constant.SHOP);
       } else {
         dispatch(loginPost(formData));
+        setIsLoading(false);
+        navigation.navigate(constant.SHOP);
       }
     } catch (error) {
-      console.log(error.response);
+      console.log(error.response.data.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
