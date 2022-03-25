@@ -3,7 +3,7 @@ import { Alert, ActivityIndicator } from "react-native";
 import { Container, List, Loading, Centered, IconBack } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, deleteUserPost } from "../../../features/posts/posts-thunk";
-import { MaterialIcons } from "@expo/vector-icons";
+import { SimpleLineIcons } from "@expo/vector-icons";
 import ProductItem from "../../../components/Shop/ProdutItem";
 
 import Button from "../../../components/UI/Button";
@@ -11,6 +11,8 @@ import theme from "../../../styles/theme";
 
 import { useNavigation } from "@react-navigation/native";
 import constant from "../../../constants/navigatorStrings";
+import { logout } from "../../../features/auth/auth-slice";
+
 
 const ProductOverview = () => {
   const dispatch = useDispatch();
@@ -23,23 +25,27 @@ const ProductOverview = () => {
   }, [dispatch]);
 
   const deleteHandler = (id) => {
-    console.log('click')  
-    Alert.alert('Are you sure?', 'Do you really want to delete this item?', [
+    Alert.alert("Are you sure?", "Do you really want to delete this item?", [
       {
-        text: 'No', 
-        style: 'default'
+        text: "No",
+        style: "default",
       },
       {
-        text: 'Yes',
-        style: 'destructive',
+        text: "Yes",
+        style: "destructive",
         onPress: () => {
-          dispatch(deleteUserPost(id))
-        }
-      }
+          dispatch(deleteUserPost(id));
+        },
+      },
     ]);
   };
 
-  if (loading) return <Centered><ActivityIndicator size="large" color={theme.colors.secondary} /></Centered>;
+  if (loading)
+    return (
+      <Centered>
+        <ActivityIndicator size="large" color={theme.colors.secondary} />
+      </Centered>
+    );
 
   return (
     <Container>
@@ -52,7 +58,9 @@ const ProductOverview = () => {
             <ProductItem
               description={itemData.item.description}
               onEdit={() => {
-                navigation.navigate(constant.USER_EDIT, { postId: itemData.item.id });
+                navigation.navigate(constant.USER_EDIT, {
+                  postId: itemData.item.id,
+                });
               }}
               onDelete={deleteHandler.bind(this, itemData.item.id)}
             />
@@ -60,7 +68,7 @@ const ProductOverview = () => {
         }}
       />
       <Button
-      large
+        large
         label="Create Product"
         onPress={() => {
           navigation.navigate(constant.USER_EDIT);
@@ -73,6 +81,9 @@ const ProductOverview = () => {
 export default ProductOverview;
 
 export const screenOptions = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   return {
     headerTitle: "All Products",
     headerStyle: { backgroundColor: theme.colors.secondary },
@@ -81,15 +92,14 @@ export const screenOptions = () => {
       fontFamily: theme.fonts.bold,
     },
     headerLeft: () => {
-      const navigation = useNavigation();
-
       return (
         <IconBack
           onPress={() => {
-            navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
+            dispatch(logout());
+            navigation.navigate(constant.AUTH);
           }}
         >
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="white" />
+          <SimpleLineIcons name="logout" size={20} color="white" />
         </IconBack>
       );
     },

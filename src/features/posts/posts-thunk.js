@@ -7,6 +7,8 @@ export const getPosts = createAsyncThunk("posts/getPosts", async () => {
     const { data } = await api.fetchPosts();
     const loadedPost = [];
 
+    console.log(data)
+
     for (const key in data) {
       loadedPost.push(new Post(key, "u1", data[key].description));
     }
@@ -17,30 +19,36 @@ export const getPosts = createAsyncThunk("posts/getPosts", async () => {
   }
 });
 
-export const createPost = createAsyncThunk("post/createPost", async (post) => {
-  try {
-    const { data } = await api.postPost(post);
-    console.log("slice create",data)
-    return data;
-  } catch (error) {
-    return error;
+export const createPost = createAsyncThunk(
+  "post/createPost",
+  async (post, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
+
+    try {
+      const { data } = await api.postPost(post, token);
+
+      return data;
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
   }
-});
+);
 
 export const updateUserPost = createAsyncThunk(
-  "posts/updatePosts",
-  async (updatePost) => {
+  "posts/updatePost",
+  async (updatePost, { getState }) => {
+    const state = getState();
+    const token = state.auth.token;
 
     const obj = {
       description: updatePost.description,
       ownerId: updatePost.ownerId,
     };
 
-    console.log("thunk obj", updatePost)
-
     try {
-      const { data } = await api.updatePost(updatePost.id, obj)
-      console.log("thunk update",data)
+      const { data } = await api.updatePost(updatePost.id, obj, token);
+      console.log("thunk update", data);
 
       return data;
     } catch (error) {
@@ -50,12 +58,15 @@ export const updateUserPost = createAsyncThunk(
 );
 
 export const deleteUserPost = createAsyncThunk(
-  "posts/deletePosts",
-  async (id) => {  
-    try {
-     await api.deletePost(id);
+  "posts/deletePost",
+  async (id, { getState }) => {
+    const state = getState()
+    const token = state.auth.token;
 
-     return id;
+    try {
+      await api.deletePost(id, token);
+
+      return id;
     } catch (error) {
       return rejectWithValue("Opps there seems to be an error");
     }
