@@ -8,8 +8,8 @@ import PostsOverview, {
 } from '../screens/Shop/PostsOverview';
 
 
-import EditProductScreen, {
-  screenOptions as EditProductScreenOptions,
+import EditPostScreen, {
+  screenOptions as EditPostScreenOptions,
 } from "../screens/User/EditPost";
 
 const ShopStack = createNativeStackNavigator();
@@ -24,8 +24,8 @@ export const ShopNavigation = () => {
       />
        <ShopStack.Screen
         name={constant.USER_EDIT}
-        component={EditProductScreen}
-        options={EditProductScreenOptions}
+        component={EditPostScreen}
+        options={EditPostScreenOptions}
       />
     </ShopStack.Navigator>
   );

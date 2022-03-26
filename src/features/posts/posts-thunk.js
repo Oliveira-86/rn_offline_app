@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../api";
 import Post from "../../models/post";
+import { insertPost } from "../../helpers/db";
 
 export const getPosts = createAsyncThunk("posts/getPosts", async () => {
   try {
@@ -27,6 +28,9 @@ export const createPost = createAsyncThunk(
 
     try {
       const { data } = await api.postPost(post, token);
+
+      const dbResult = await insertPost(post, 'u1');
+      console.log("DB...", dbResult)
 
       return data;
     } catch (error) {

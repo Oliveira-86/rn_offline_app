@@ -48,7 +48,6 @@ const EditPostScreen = ({ route }) => {
         dispatch(updateUserPost(updateObj));
         navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
       } else {
-        console.log('Here')
         dispatch(createPost(obj));
         navigation.navigate(constant.SHOP_POSTS_OVERVIEW);
       }

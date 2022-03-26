@@ -14,6 +14,16 @@ import { Provider } from "react-redux";
 
 import AppLoading from "expo-app-loading";
 import theme from "./src/styles/theme";
+import { init } from "./src/helpers/db";
+
+init()
+  .then(() => {
+    console.log("Initialized database.");
+  })
+  .catch((error) => {
+    console.log("Initializing database failed");
+    console.log(error);
+  });
 
 export default function App() {
   let [fontsLoaded] = useFonts({
